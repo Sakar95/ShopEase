@@ -21,10 +21,16 @@ const __dirname = path.dirname(__filename)
 
 
 // middlewares
-app.use(cors())
+app.use(cors(
+    {
+        origin:[],
+        credentials:true
+
+    }
+))
 app.use(express.json())
 app.use(morgan("dev"))
-app.use(express.static(path.join(__dirname,'./client/build')))
+// app.use(express.static(path.join(__dirname,'./client/build')))
 
 
 const port = process.env.PORT || 8080
@@ -35,9 +41,11 @@ app.use('/api/v1/auth',auth)
 app.use('/api/v1/category',categoryRoute)
 app.use('/api/v1/product',productRoute)
 
-app.use('*',function(req,res){
-    res.sendFile(path.join(__dirname,".client/build","index.html"))
-})
+// app.use('*',function(req,res){
+//     res.sendFile(path.join(__dirname,".client/build","index.html"))
+// })
+
+
 
 
 
