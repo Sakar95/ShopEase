@@ -24,6 +24,7 @@ const __dirname = path.dirname(__filename)
 app.use(cors(
     {
         origin:["https://shop-ease-frontend.vercel.app"],
+        methods :["POST","GET"],
         credentials:true
 
     }
