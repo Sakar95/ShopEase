@@ -21,10 +21,11 @@ const __dirname = path.dirname(__filename)
 
 
 // middlewares
+app.options('*', cors()); 
 app.use(cors(
     {
         origin:["https://shop-ease-frontend.vercel.app"],
-        methods :["POST","GET"],
+        methods :["POST","GET","OPTIONS"],
         credentials:true
 
     }
