@@ -23,7 +23,7 @@ const __dirname = path.dirname(__filename)
 // middlewares
 app.use(cors(
     {
-        origin:[],
+        origin:["https://shop-ease-frontend.vercel.app"],
         credentials:true
 
     }
