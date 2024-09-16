@@ -45,7 +45,7 @@ const ProductDetails = () => {
                     <div className="flex max-w-screen-xl w-full mx-auto my-8 bg-white shadow-gray-900 shadow-lg rounded-md overflow-hidden  h-2/3 bg-gray-200 p-1">
                         {/* Left Side: Product Image */}
                         <div className="md:w-1/2 flex  border-r border-red-600 m-auto p-2 bg-gray-600 h-full rounded ">
-                            <img src={`/api/v1/product/product-photo/${product._id}`} alt={product.name} className="mx-auto  " />
+                            <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product._id}`} alt={product.name} className="mx-auto  " />
                         </div>
                         {/* Right Side: Product Details */}
                         <div className="md:w-1/2 p-6 m-auto bg-gray-900 h-full rounded ">

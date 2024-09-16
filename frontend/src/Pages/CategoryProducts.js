@@ -62,7 +62,7 @@ export default function CategoryProducts() {
                     <div className="shadow-lg font-Nunito border-2 border-gray-300 rounded-sm overflow-hidden flex flex-col  hover:translate-y-[-5px] transition duration-300 ease-in-out w-60 s m-5 mx-6">
                       {/* Product Image */}
                       <div className="relative w-full h-56 overflow-hidden">
-                        <img src={`/api/v1/product/product-photo/${p._id}`} alt={p.name} className="w-full h-full object-cover absolute inset-0" />
+                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} alt={p.name} className="w-full h-full object-cover absolute inset-0" />
                       </div>
 
                       {/* Product Details */}
