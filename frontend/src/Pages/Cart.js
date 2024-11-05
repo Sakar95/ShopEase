@@ -88,7 +88,7 @@ export default function Cart() {
                     {cart && cart.map((cartP) => (
                         <div key={cartP.id} className="flex items-center space-x-4 p-4 border-b ">
                             {/* Product Image */}
-                            <img src={`/api/v1/product/product-photo/${cartP._id}`} alt={cartP.name} className="w-64 object-cover" />
+                            <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${cartP._id}`} alt={cartP.name} className="w-64 object-cover" />
                             {/* Product Details */}
                             <div className='pl-8 '>
                                 <h3 className="text-lg font-semibold">{cartP.name}</h3>
