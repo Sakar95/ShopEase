@@ -93,7 +93,7 @@ export default function Cart() {
                             <div className='pl-8 '>
                                 <h3 className="text-lg font-semibold">{cartP.name}</h3>
                                 <p className=" text-gray-700 text-sm">{cartP.description.length>20 ? `${cartP.description.substring(0,40)}...`:cartP.description}</p>
-                                <p className="text-red-500">${cartP.price}</p>
+                                <p className="text-red-500">₹{cartP.price}</p>
                                 <button className='bg-red-600 rounded p-2 text-white'
                                     onClick={() => handleRemove(cartP)}
                                 >Remove</button>
@@ -114,7 +114,7 @@ export default function Cart() {
 
                     <div className="text-lg m-6 ">
 
-                        Total : ${totalPrice()}
+                        Total : ₹{totalPrice()}
                         {
                             auth?.user?.address ? (
                                 <div>

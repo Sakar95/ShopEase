@@ -62,7 +62,7 @@ export default function Products() {
                         <h2 className="text-gray-800 text-md ">{p.name}</h2>
 
                         {/* Product Price */}
-                        <p className="text-red-500 font-semibold">$ {p.price}</p>
+                        <p className="text-red-500 font-semibold">₹ {p.price}</p>
                       </div>
                         <p className="pl-4 text-gray-700 text-sm pb-4">{p.description.length>20 ? `${p.description.substring(0,30)}...`:p.description}</p>
 

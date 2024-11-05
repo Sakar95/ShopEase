@@ -73,9 +73,9 @@ export default function CategoryProducts() {
                         <h2 className="text-gray-800 text-md ">{p.name}</h2>
 
                         {/* Product Price */}
-                        <p className="text-red-500 font-semibold">$ {p.price}</p>
+                        <p className="text-red-500 font-semibold">₹ {p.price}</p>
                       </div>
-                        <p className="pl-4 text-gray-700 text-sm">{p.description.length>20 ? `${p.description.substring(0,30)}...`:p.description}</p>
+                        <p className="pl-4 text-gray-700 text-sm">{p.description.length>20 ? `${p.description.substring(0,27)}...`:p.description}</p>
 
                       {/* Buttons */}
                       <div className='flex justify-center'>

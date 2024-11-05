@@ -19,7 +19,7 @@ const Spinner = ({path = "/login"}) => {
   return (
     <div className="flex items-center justify-center h-screen flex-col bg-gradient-to-t from-gray-600 via-gray-700 to-gray-700 text-white">
       <div><PulseLoader color="#FF0200" size={15} /></div>
-      <div className='text-3xl text-white'>redirecting tou to you in {count}</div>
+      <div className='text-3xl text-white'>Redirecting tou to you in {count}</div>
     </div>
   );
 };

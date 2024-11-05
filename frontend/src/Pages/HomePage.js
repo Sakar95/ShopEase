@@ -17,6 +17,7 @@ export default function HomePage() {
   const [totalP, setTotalP] = useState(0)
   const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(false)
+  const [filterLoading, setFilterLoading] = useState(false)
   const [cart, setCart] = useCart()
   const navigate = useNavigate()
 
@@ -78,7 +79,9 @@ export default function HomePage() {
 
   const filterProduct = async () => {
     try {
+      setFilterLoading(true)
       const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/filter-product`, { checked })
+      setFilterLoading(false)
       console.log(data)
       setProducts(data?.products)
 
@@ -164,52 +167,74 @@ export default function HomePage() {
 
             </div>
             <div className="w-5/6 bg-gray-100 pt-8">
-              <div className='flex flex-wrap '>
-                {
-                  products && products.map((p) => (
-                    <div className="shadow-lg font-Nunito border-2 border-gray-300 rounded-sm overflow-hidden flex flex-col  hover:translate-y-[-5px] transition duration-300 ease-in-out w-60 s m-5 mx-6">
-                      {/* Product Image */}
-                      <div className="relative w-full h-56 overflow-hidden">
-                        <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} alt={p.name} className="w-full h-full object-cover absolute inset-0" />
-                      </div>
-
-                      {/* Product Details */}
-                      <div className="bg-gray-300">
-
-                      <div className="pt-2 pb-1 px-4 flex justify-between">
-                        {/* Product Name */}
-                        <h2 className="text-gray-800 text-md ">{p.name}</h2>
-
-                        {/* Product Price */}
-                        <p className="text-red-500 font-semibold">$ {p.price}</p>
-                      </div>
-                        <p className="pl-4 text-gray-700 text-sm">{p.description.length>20 ? `${p.description.substring(0,25)}...`:p.description}</p>
-
-                      {/* Buttons */}
-                      <div className='flex justify-center'>
-                        <button className='px-2 py-1 bg-red-600 rounded-tl rounded-br  text-gray-200 mr-1 my-2' onClick={() => navigate(`/product-details/${p.slug}`)}>More Details</button>
-                        <button className='px-2 py-1 bg-gray-900 rounded-bl rounded-br text-gray-200  my-2' onClick={() => handleCartButton(p)}>Add to Cart</button>
-                      </div>
-                      </div>
-                    </div>
-                  ))
-
-                }
-              </div>
-              {
-                products && products.length < totalP && (
-                  <button
-                    className="bg-yellow-400 px-2 py-1 m-2 ml-4  rounded font-frek hover:bg-yellow-500"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setPage(page + 1)
-                    }}
-                  >
-                    {loading ? "Loading..." : "Load More"}
-                  </button>
-                )
-              }
+  {filterLoading ? (
+    <div className="flex justify-center items-center w-full h-64"> {/* Centering Loader */}
+      <MoonLoader color="#FF0200" size={45} />
+    </div>
+  ) : (
+    <div className="flex flex-wrap">
+      {products &&
+        products.map((p) => (
+          <div
+            key={p._id}
+            className="shadow-lg font-Nunito border-2 border-gray-300 rounded-sm overflow-hidden flex flex-col hover:translate-y-[-5px] transition duration-300 ease-in-out w-60 m-5 mx-6"
+          >
+            {/* Product Image */}
+            <div className="relative w-full h-56 overflow-hidden">
+              <img
+                src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                alt={p.name}
+                className="w-full h-full object-cover absolute inset-0"
+              />
             </div>
+
+            {/* Product Details */}
+            <div className="bg-gray-300">
+              <div className="pt-2 pb-1 px-4 flex justify-between">
+                {/* Product Name */}
+                <h2 className="text-gray-800 text-md">{p.name}</h2>
+
+                {/* Product Price */}
+                <p className="text-red-500 font-semibold">₹ {p.price}</p>
+              </div>
+              <p className="pl-4 text-gray-700 text-sm">
+                {p.description.length > 20 ? `${p.description.substring(0, 25)}...` : p.description}
+              </p>
+
+              {/* Buttons */}
+              <div className="flex justify-center">
+                <button
+                  className="px-2 py-1 bg-red-600 rounded-tl rounded-br text-gray-200 mr-1 my-2"
+                  onClick={() => navigate(`/product-details/${p.slug}`)}
+                >
+                  More Details
+                </button>
+                <button
+                  className="px-2 py-1 bg-gray-900 rounded-bl rounded-br text-gray-200 my-2"
+                  onClick={() => handleCartButton(p)}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+    </div>
+  )}
+
+  {!filterLoading && products && products.length < totalP && (
+    <button
+      className="bg-yellow-400 px-2 py-1 m-2 ml-4 rounded font-frek hover:bg-yellow-500"
+      onClick={(e) => {
+        e.preventDefault();
+        setPage(page + 1);
+      }}
+    >
+      {loading ? "Loading..." : "Load More"}
+    </button>
+  )}
+</div>
+
 
           </div>
         </div>
