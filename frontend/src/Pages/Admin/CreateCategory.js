@@ -80,7 +80,6 @@ const CreateCategory = () => {
           <AdminMenu />
         </div>
 
-        {/* Admin Information in the middle */}
         <div className="w-5/6 pl-8">
         <h1 className='text-xl my-8 py-1 font-Nunito border-2 border-red-600 shadow-lg w-fit px-2 rounded font-bold'>
            Manage Categories

@@ -101,12 +101,11 @@ const UpdateProducts = () => {
   return (
     <Layout>
       <div className="grid grid-cols-3 h-screen gap-6">
-        {/* Admin Panel on the left */}
+        
         <div>
           <AdminMenu />
         </div>
 
-        {/* Admin Information in the middle */}
         <div className="col-span-2 pt-4">
           <h2>Update Products</h2>
 

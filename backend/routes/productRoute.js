@@ -11,7 +11,10 @@ import {
     productListController,
     searchProductController,
     categoryProductController,
-    paymentController,
+    getCartProductsController,
+    addProductToCart,
+    paymentAndEmptyCartController,
+    removeCartItemController,
 } from '../controllers/productController.js'
 import { isAdmin, requireSignIn } from '../middlewares/authMiddleware.js'
 import formidable from 'express-formidable'
@@ -32,6 +35,9 @@ router.put(
 
 // Get all products  
 router.get("/get-products", getProductsController)
+
+
+
 
 
 // Get a single Product
@@ -58,7 +64,15 @@ router.get('/search/:keyword',searchProductController)
 // Products Based On Category
 router.get('/category-product/:slug',categoryProductController)
 
+//Add to cart
+router.post('/addToCart',requireSignIn,addProductToCart)
+
+//Get Cart Item
+router.get('/getCartProducts', requireSignIn, getCartProductsController);
+
+router.delete('/removefromcart',requireSignIn, removeCartItemController)
+
 // Patment Routes
-router.post('/payments',requireSignIn,paymentController)
+router.post('/payments',requireSignIn,paymentAndEmptyCartController)
 
 export default router

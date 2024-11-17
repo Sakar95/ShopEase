@@ -3,7 +3,6 @@ import Layout from '../Components/Layout/Layout'
 import { useCart } from '../Context/cartContext'
 import authContext from '../Context/authContext'
 import { useNavigate } from 'react-router-dom'
-// import DropIn from "braintree-web-drop-in-react";
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
@@ -13,83 +12,86 @@ export default function Cart() {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
 
-    // const [clientToken,setClientToken] = useState("")
-    // const [instance,setInstance] = useState("")
+    console.log(cart)
 
-    // const handlePayment = async()=>{
-    //     try {
-    //         setLoading(true)
-    //         const {nonce} = await instance.requestPaymentMethod()
-    //         const {data} = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/braintree/payment`,{
-    //             nonce,cart
-    //         })
-    //         setLoading(false)
-    //         localStorage.removeItem("cart")
-    //         setCart([])
-    //         navigate('/dashboard/user/all-orders')
-    //         toast.success("Payment Completed Successfully")
-    //     } catch (error) {
-    //         console.log(error)
-    //         setLoading(false)
-    //     }
-    // }
-
-    // const getToken = async ()=>{
-    //     try {
-    //         const {data} = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/braintree/token`)
-    //         setClientToken(data?.clientToken)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    // useEffect(()=>{
-    //     getToken()
-    // },[auth?.token])
+  
 
     const totalPrice = () => {
-
         let total = 0;
         cart.map((item) => total = total + item.price)
         return total
     }
 
-    const handleRemove = (cartP) => {
-        const updatedCart = cart.filter((p) => p._id !== cartP._id)
-        localStorage.setItem('cart', JSON.stringify(updatedCart))
-        setCart(updatedCart)
+
+const handleRemove = async (cartP) => {
+    try {
+
+        const res = await axios.delete(`${process.env.REACT_APP_API}/api/v1/product/removefromcart`, {
+            data: { productId: cartP._id }, 
+            headers: {
+                Authorization: `Bearer ${auth.token}`,
+            },
+        });
+
+        if (res.data.success) {
+            const updatedCart = cart.filter((p) => p._id !== cartP._id);
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            setCart(updatedCart);
+
+            toast.success(res.data.message || "Item removed from cart successfully");
+        } else {
+            toast.error(res.data.message || "Failed to remove item from cart");
+        }
+    } catch (error) {
+        console.error("Error removing item from cart:", error);
+        toast.error("An error occurred while removing item from cart");
     }
+};
+
 
     const handlePayment = async () => {
         try {
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/payments`, { cart })
-            localStorage.removeItem("cart")
-            setCart([])
-            navigate('/dashboard/user/all-orders')
-            toast.success("Payment Completed Successfully")
+            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/product/payments`, 
+                { cart },
+                {
+                    headers: {
+                        Authorization: `Bearer ${auth.token}`,
+                    },
+                }
+            );
+    
+            if (data.success) {
+                localStorage.removeItem("cart"); 
+                setCart([]);                     
+                navigate('/dashboard/user/all-orders'); 
+                toast.success(data.message || "Payment Completed Successfully");
+            } else {
+                toast.error("Payment failed. Please try again.");
+            }
         } catch (error) {
-            console.log(error)
+            console.error("Error processing payment:", error);
+            toast.error("An error occurred during payment processing.");
         }
-    }
-
+    };
+    
 
     return (
         <Layout title="Cart - Shopease">
             <div className="flex p-4 font-Nunito bg-gray-300 min-h-screen">
-                {/* Left Side: Product Details */}
+              
                 <div className="w-2/3 border-r">
                     <div className='text-center text-xl pt-4'>
                         {`Hello ${auth?.token && auth?.user?.name}`}
                         <div>
-                            {auth.token ? cart?.length ? `You have ${cart.length} product(s) in your Cart` : "You don't have any product in your Cart" : "Please Login"}
+                            {auth.token ? cart?.length ? `You have ${cart?.length} product(s) in your Cart` : "You don't have any product in your Cart" : "Please Login"}
                         </div>
                     </div>
 
                     {cart && cart.map((cartP) => (
                         <div key={cartP.id} className="flex items-center space-x-4 p-4 border-b ">
-                            {/* Product Image */}
+                           
                             <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${cartP._id}`} alt={cartP.name} className="w-64 object-cover" />
-                            {/* Product Details */}
+                          
                             <div className='pl-8 '>
                                 <h3 className="text-lg font-semibold">{cartP.name}</h3>
                                 <p className=" text-gray-700 text-sm">{cartP.description.length>20 ? `${cartP.description.substring(0,40)}...`:cartP.description}</p>
@@ -102,7 +104,7 @@ export default function Cart() {
                     ))}
                 </div>
 
-                {/* Right Side: Payment Section */}
+                
                 <div className="w-1/3 p-4 font-Nunito">
                     {/* <div className="text-xl font-bold mb-4 text-center">Cart Summary</div> */}
                     <h1 className='text-xl mt-4 py-1 mx-auto  font-Nunito border-2 border-red-600 shadow-lg w-fit px-2 rounded font-bold'>
@@ -162,34 +164,14 @@ export default function Cart() {
                     }
 
 
-                    {/* <div className='p-2 border-2 '>
-                            {
-                                !clientToken || !cart?.length ? (""):(
-                                    <>
-                                         <DropIn
-
-                                            options = {{
-                                                authorization : clientToken,
-                                                paypal : {
-                                                    flow : "vault",
-                                                },
-                                            }}
-                                            onInstance={(instance) =>setInstance(instance)}
-                                            />
-
-                                            <button className='bg-blue-400 px-2 py-1 rounded' 
-                                            onClick={handlePayment}
-                                            disabled ={loading || !instance || !auth?.user?.address}
-                                            >{loading?"Processing..." : "Make Payment"}</button>
-
-                                    </>
-                                )
-                            }
-                           
-                        </div> */}
+                  
                 </div>
             </div>
 
         </Layout>
     )
 }
+
+
+
+

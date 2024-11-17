@@ -6,16 +6,15 @@ export default function About() {
   return (
     <Layout title = {"About Us - ShopEase"}>
       <div className="container mx-auto pt-16 flex items-center px-24 text-center font-Nunito ">
-        {/* Image on the left side */}
+       
         <div className="w-1/2 mr-4">
           <img
-            src={AboutImage} // Replace with your actual image source
+            src={AboutImage} 
             alt="About Us"
             className="w-96 h-auto rounded-lg"
           />
         </div>
 
-        {/* Content on the right side */}
         <div className="w-1/2">
           <h2 className="text-3xl font-semibold mb-4">About Us</h2>
           <p className="text-gray-700">

@@ -1,7 +1,7 @@
 import { comparepassword, hashpassword } from "../helper/authHelper.js";
 import orderModel from "../models/orderModel.js";
 import { User } from "../models/userModels.js";
-import JWT from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 
 export const registerController = async (req, res) => {
@@ -82,7 +82,7 @@ export const loginController = async (req,res)=>{
             })
         }
 
-        const token = JWT.sign({_id:findUser._id},process.env.JWT_SECRET,{expiresIn:"7d"})
+        const token = jwt.sign({_id:findUser._id},process.env.JWT_SECRET,{expiresIn:"7h"})
 
         
         res.status(200).send({

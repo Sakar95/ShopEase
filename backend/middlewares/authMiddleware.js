@@ -1,15 +1,24 @@
-import JWT from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 import { User } from "../models/userModels.js";
 
-export const requireSignIn = async (req, res, next) => {
+
+export const requireSignIn = (req, res, next) => {
+    const token = req.header("Authorization").replace("Bearer ", "");
+    // console.log("Token------",token)
+    if (!token) {
+        return res.status(401).json({ success: false, message: "Access Denied" });
+    }
+
     try {
-        const decode = JWT.verify(req.headers.authorization, process.env.JWT_SECRET)
-        req.user = decode
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded; 
         next();
     } catch (error) {
-        console.log(error)
+        console.error("Invalid or expired token", error);
+        res.status(401).json({ success: false, message: "Invalid or expired token" });
     }
-}
+};
+
 
 export const isAdmin = async (req, res, next) => {
     try {

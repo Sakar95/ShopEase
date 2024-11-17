@@ -14,7 +14,6 @@ const Dashboard = () => {
         <div className="w-1/6 border-r ">
           <UserMenu />
         </div>
-        {/* Admin Information in the middle */}
         <div className="w-5/6 pl-8 text-xl font-Nunito">
           <h2 className="font-bold  my-8 py-1  border-red-600 border-2 w-fit rounded px-2 shadow-lg">User Information:</h2>
 

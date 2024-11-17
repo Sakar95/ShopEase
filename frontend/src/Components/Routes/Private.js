@@ -11,6 +11,7 @@ export default function Private() {
 
     useEffect(()=>{
         const authchk = async ()=>{
+            console.log("res in private route")
             const res = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/user-auth`)
             if(res.data.ok){
                 setOk(true)

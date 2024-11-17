@@ -1,20 +1,22 @@
-import { useState,useContext, createContext, useEffect } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
+import axios from "axios";
 
-const cartContext = createContext()
+const cartContext = createContext();
 
-const CartState = ({children})=>{
-    const [cart,setCart] = useState([])
-    useEffect(()=>{
-        let existingCartItem = localStorage.getItem('cart')
-        if(existingCartItem) setCart(JSON.parse(existingCartItem))
-    },[])
-    return(
-        <cartContext.Provider value={[cart,setCart]}>
+const CartState = ({ children }) => {
+    const [cart, setCart] = useState(() => {
+        const storedCart = JSON.parse(localStorage.getItem('cart'));
+        return storedCart || [];
+    });
+
+    
+    return (
+        <cartContext.Provider value={[cart, setCart]}>
             {children}
         </cartContext.Provider>
-    )
-}
+    );
+};
 
-const useCart = ()=>useContext(cartContext)
+const useCart = () => useContext(cartContext);
 
-export {useCart,CartState}
+export { useCart, CartState };

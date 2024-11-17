@@ -3,26 +3,64 @@ import Layout from '../Components/Layout/Layout'
 import searchContext from '../Context/searchContext'
 import { useNavigate } from 'react-router-dom'
 import { useCart } from '../Context/cartContext'
+import authContext from '../Context/authContext'
 import toast from 'react-hot-toast'
+import { jwtDecode } from 'jwt-decode';
+import axios from 'axios'
 
 export default function Search() {
   const { values, setValues } = useContext(searchContext)
   const navigate = useNavigate()
   const [cart, setCart] = useCart()
+  const { auth } = useContext(authContext)
 
-  const handleCartButton = (p) => {
-    // Check if the product is already in the cart
-    const isProductInCart = cart.some((item) => item._id === p._id);
+  
+  const handleCartButton = async (p) => {
+   
+    try {
+        const token = auth.token;
+        if (!token) {
+            toast.error('User is not authenticated');
+            return;
+        }
+        
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.exp * 1000 < Date.now()) {
+            toast.error('Session expired. Please log in again.');
+            localStorage.removeItem('token');
+            return;
+        }
 
-    if (isProductInCart) {
-      toast.error('Item is already in the Cart');
-    } else {
-      // Add the product to the cart if it's not present
-      setCart([...cart, p]);
-      localStorage.setItem('cart', JSON.stringify([...cart, p]))
-      toast.success('Item added to Cart Successfully');
+        const cartItems = cart || [];
+        const itemExists = cartItems.some(item => item._id === p._id);
+
+
+        if (itemExists) {
+            toast.success('Item already in the cart');
+            return;
+        }
+
+
+        const response = await axios.post(
+            `${process.env.REACT_APP_API}/api/v1/product/addToCart`,
+            { productId: p._id },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        console.log(response)
+
+        if (response.data.success) {
+          localStorage.setItem('cart', JSON.stringify([...cart, p]))
+          setCart([...cart, p]);
+            toast.success('Item added to Cart Successfully');
+        } else {
+            toast.error(response.data.message || 'Failed to add item to the cart');
+        }
+    } catch (error) {
+        console.error("Error adding item to cart:", error);
+        toast.error('Error adding item to cart');
     }
-  };
+};
 
   return (
     <Layout>

@@ -10,7 +10,6 @@ export default function SearchInput() {
     const navigate = useNavigate()
 
     const handleSearch = async () => {
-        // e.preventDefault()
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/search/${values.keyword}`)
             setValues({...values,result:data})
@@ -37,9 +36,7 @@ export default function SearchInput() {
             >
                 Search
             </button>
-            {/* <button>
-                Dusplay
-            </button> */}
+           
         </div>
     )
 }
