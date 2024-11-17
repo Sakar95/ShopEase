@@ -42,7 +42,7 @@ const Header = () => {
   }, [auth?.token]);
 
   // console.log(cart)
-  
+
   const handleLogout = () => {
     toast.success('Logged Out Successfully');
     setAuth({ ...auth, user: null, token: '' });
@@ -123,5 +123,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

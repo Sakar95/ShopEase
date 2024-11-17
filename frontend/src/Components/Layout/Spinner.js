@@ -17,9 +17,9 @@ const Spinner = ({path = "/login"}) => {
         return ()=>clearInterval(interval)
     },[count,navigate,location,path])
   return (
-    <div className="flex items-center justify-center h-screen flex-col bg-gradient-to-t from-gray-600 via-gray-700 to-gray-700 text-white">
+    <div className="flex items-center justify-center h-screen flex-col bg-white text-black">
       <div><PulseLoader color="#FF0200" size={15} /></div>
-      <div className='text-3xl text-white'>Redirecting to you in {count}</div>
+      <div className='text-3xl text-black'>Redirecting to you in {count}</div>
     </div>
   );
 };
