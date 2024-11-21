@@ -251,7 +251,7 @@ export default function Cart() {
 
     return (
         <Layout title="Cart - Shopease">
-            <div className="flex p-4 font-Nunito bg-gray-300 min-h-screen">
+            <div className="flex p-4 font-Nunito bg-gradient-to-t from-gray-200 via-gray-300 to-gray-400 min-h-screen">
               
                 <div className="w-2/3 border-r">
                     <div className='text-center text-xl pt-4'>

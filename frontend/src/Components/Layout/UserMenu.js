@@ -7,27 +7,36 @@ const UserMenu = () => {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col w-full  my-8 shadow-lg ">
-      {/* <h1 className="text-2xl font-bold pb-2 text-center">Dashboard</h1> */}
+    <div className="flex flex-col w-full pt-2 shadow-md bg-white">
+      {/* Header */}
+      <h1 className="text-xl font-semibold pb-4 text-center text-gray-700 border-b border-gray-200 ">
+        User Dashboard
+      </h1>
+
+      {/* Menu Items */}
       <NavLink
         to="/dashboard/user"
-        className={`text-blue-500 py-2 px-4  text-center rounded-t font-Nunito  border border-gray-600 ${location.pathname === '/dashboard/user' && ' bg-red-600 text-white'}`}
+        className={`py-3 px-6 text-center text-gray-600 font-medium transition duration-200 ease-in-out border-b border-gray-200
+        ${location.pathname === '/dashboard/user' ? 'bg-red-600 text-white font-semibold border-l-4 border-red-800' : 'hover:bg-gray-100'}`}
       >
         Dashboard
       </NavLink>
+      
       <NavLink
         to="/dashboard/user/profile"
-        className={`text-blue-500 py-2 px-4 text-center  border border-gray-600 ${location.pathname === '/dashboard/user/profile' && 'bg-red-600 text-white'}`}
+        className={`py-3 px-6 text-center text-gray-600 font-medium transition duration-200 ease-in-out border-b border-gray-200
+        ${location.pathname === '/dashboard/user/profile' ? 'bg-red-600 text-white font-semibold border-l-4 border-red-800' : 'hover:bg-gray-100'}`}
       >
-       Update Profile
+        Update Profile
       </NavLink>
+      
       <NavLink
         to="/dashboard/user/all-orders"
-        className={`text-blue-500 rounded-b py-2 px-4 text-center  border border-gray-600 ${location.pathname === '/dashboard/user/all-orders' && 'bg-red-600 text-white'}`}
+        className={`py-3 px-6 text-center text-gray-600 font-medium transition duration-200 ease-in-out 
+        ${location.pathname === '/dashboard/user/all-orders' ? 'bg-red-600 text-white font-semibold border-l-4 border-red-800' : 'hover:bg-gray-100'}`}
       >
         All Orders
       </NavLink>
-      
     </div>
   );
 };

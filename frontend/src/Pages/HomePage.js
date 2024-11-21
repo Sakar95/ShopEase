@@ -173,11 +173,11 @@ export default function HomePage() {
         {
           loading ? <div className='flex justify-center items-center h-screen'><MoonLoader color="#FF0200" size={45} /></div> : (
             <>
-              <div className="container mx-auto">
+              <div className="container mx-auto bg-gray-100">
                 <div className="flex min-h-screen">
                   <div className='relative  w-1/5  border-gray-300 shadow-md'>
 
-                  <div className="flex flex-col sticky top-20 bg-gray-100 border-r ">
+                  <div className="flex flex-col sticky top-20  border-r ">
                     <div className="text-center text-2xl font-semibold font-Nunito pt-8 text-gray-800 ">
                       Filter By Category
                     </div>
@@ -206,7 +206,7 @@ export default function HomePage() {
 
 
 
-                  <div className="w-5/6 bg-gray-100 pt-8">
+                  <div className="w-5/6 pt-8 bg-gradient-to-t from-gray-200 via-gray-300 to-gray-400 ">
                     {filterLoading ? (
                       <div className="flex justify-center items-center w-full h-64">
                         <MoonLoader color="#FF0200" size={45} />

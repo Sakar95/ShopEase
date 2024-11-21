@@ -11,11 +11,11 @@ const AdminDashboard = () => {
     <Layout>
       <div className="flex h-screen ">
 
-        <div className="w-1/6 border-r  ">
+        <div className="w-1/6 border-r  bg-gray-300">
           <AdminMenu />
         </div>
         {/* Admin Information in the middle */}
-        <div className="w-5/6 pl-8 text-xl font-Nunito">
+        <div className="w-5/6 pl-8 text-xl font-Nunito bg-gradient-to-t from-gray-200 via-gray-300 to-gray-400">
           <h2 className="font-bold  my-8 py-1  border-red-600 border-2 w-fit rounded px-2 shadow-lg">Admin Information:</h2>
 
           <div className='mb-4'>

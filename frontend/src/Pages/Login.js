@@ -40,8 +40,8 @@ const Login = () => {
   
   return (
     <Layout>
-      <div className="register bg-gradient-to-t from-gray-600 via-gray-700 to-gray-800 pt-36 pb-36">
-        <form onSubmit={handleSubmit} className="bg-white max-w-md shadow-black shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto bg-gradient-to-t from-gray-600 via-gray-700 to-gray-700 text-white">
+      <div className="register bg-gradient-to-t from-gray-200 via-gray-300 to-gray-400 pt-36 pb-36">
+        <form onSubmit={handleSubmit} className="max-w-md shadow-black shadow-md rounded px-8 pt-6 pb-8 mb-4 mx-auto bg-gray-600 text-white">
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-bold mb-2">
               Email

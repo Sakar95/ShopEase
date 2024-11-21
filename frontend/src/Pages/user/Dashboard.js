@@ -14,7 +14,7 @@ const Dashboard = () => {
         <div className="w-1/6 border-r ">
           <UserMenu />
         </div>
-        <div className="w-5/6 pl-8 text-xl font-Nunito">
+        <div className="w-5/6 pl-8 text-xl font-Nunito bg-gradient-to-t from-gray-200 via-gray-300 to-gray-400">
           <h2 className="font-bold  my-8 py-1  border-red-600 border-2 w-fit rounded px-2 shadow-lg">User Information:</h2>
 
           <div className='mb-4'>
