@@ -173,30 +173,39 @@ export default function HomePage() {
         {
           loading ? <div className='flex justify-center items-center h-screen'><MoonLoader color="#FF0200" size={45} /></div> : (
             <>
-              <div className="container mx-auto ">
+              <div className="container mx-auto">
                 <div className="flex min-h-screen">
-                  <div className="w-1/6 flex flex-col  border-r border-gray-300">
-                    <div className='text-center text-xl font-Nunito pt-8 '>
+                  <div className='relative  w-1/5  border-gray-300 shadow-md'>
+
+                  <div className="flex flex-col sticky top-20 bg-gray-100 border-r ">
+                    <div className="text-center text-2xl font-semibold font-Nunito pt-8 text-gray-800 ">
                       Filter By Category
                     </div>
-                    {/* {JSON.stringify(checked,null,4)} */}
 
-                    <div className='flex flex-col mt-4 pl-4 '>
-                      {categories?.map(c => (
-                        <label key={c._id} className="flex items-center space-x-2 pb-2">
-                          <input type="checkbox" onChange={(e) => handleFilter(e.target.checked, c._id)} className="form-checkbox text-blue-500 " />
-                          <span className='text-md'>{c.name}</span>
+                    <div className="flex flex-col mt-6 px-6">
+                      {categories?.map((c) => (
+                        <label key={c._id} className="flex items-center space-x-3 mb-3">
+                          <input
+                            type="checkbox"
+                            onChange={(e) => handleFilter(e.target.checked, c._id)}
+                            className="form-checkbox text-red-600 h-5 w-5 border-gray-400 focus:ring-red-500 focus:ring-2"
+                          />
+                          <span className="text-gray-700 text-lg">{c.name}</span>
                         </label>
                       ))}
                     </div>
-
-                    <button className='bg-red-600 rounded px-2 py-1  mx-auto text-white font-roboto shadow-lg hover:bg-red-700' onClick={() => window.location.reload()}>
+                    <button
+                      className="bg-red-600 rounded-full px-4 py-2 mx-6 mt-6 text-white font-medium font-roboto shadow-md hover:bg-red-700 transition-all duration-200"
+                      onClick={() => window.location.reload()}
+                      >
                       Reset Filters
                     </button>
-
-
-
+                      </div>
                   </div>
+
+
+
+
                   <div className="w-5/6 bg-gray-100 pt-8">
                     {filterLoading ? (
                       <div className="flex justify-center items-center w-full h-64">
@@ -208,18 +217,21 @@ export default function HomePage() {
                           products.map((p) => (
                             <div
                               key={p._id}
-                              className="shadow-lg font-Nunito border-2 border-gray-300 rounded-sm overflow-hidden flex flex-col hover:translate-y-[-5px] transition duration-300 ease-in-out w-60 m-5 mx-6"
+                              className="shadow-lg font-Nunito border-2 border-gray-300 rounded-sm overflow-hidden flex flex-col hover:translate-y-[-5px] transition duration-300 ease-in-out w-60 m-5 mx-6 "
                             >
 
-                              <div className="relative w-full h-56 overflow-hidden">
+                              <div className=" w-full h-56 overflow-hidden">
                                 <img
-                                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}` }
+                                  src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
                                   alt={p.name}
-                                  className="w-full h-full object-cover absolute inset-0"
+                                  className="w-full h-full object-cover  inset-0"
                                 />
+                                
                               </div>
 
+
                               <div className="bg-gray-300">
+
                                 <div className="pt-2 pb-1 px-4 flex justify-between">
 
                                   <h2 className="text-gray-800 text-md">{p.name}</h2>
@@ -252,7 +264,7 @@ export default function HomePage() {
 
                     {!filterLoading && products && products.length < totalP && (
                       <button
-                        className="bg-yellow-400 px-2 py-1 m-2 ml-4 rounded font-frek hover:bg-yellow-500"
+                        className="bg-yellow-400 px-2 py-1 m-2 ml-4 rounded font-frek hover:bg-yellow-500 text-white"
                         onClick={(e) => {
                           e.preventDefault();
                           setPage(page + 1);

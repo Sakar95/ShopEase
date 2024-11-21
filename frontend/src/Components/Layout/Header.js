@@ -53,12 +53,12 @@ const Header = () => {
   };
 
   return (
-    <>
-      <header className="bg-gray-900 text-white p-4 pr-8">
+    <div className='sticky top-0 z-1000'>
+      <header className="bg-gray-900 text-white p-4 pr-8 ">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <div className="w-8 h-8 bg-dark-gray-900 mr-2"></div>
-            <span className="text-xl font-anta">ShopEase.</span>
+            <span className="text-xl font-anta">ShopEase<span className='text-red-500'>.</span></span>
           </div>
 
           <SearchInput />
@@ -118,7 +118,7 @@ const Header = () => {
         </div>
       </header>
       <div className="bg-red-600 w-full h-1"></div>
-    </>
+    </div>
   );
 };
 
